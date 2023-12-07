@@ -5,20 +5,28 @@ import { getSortedPostsData } from '../lib/posts'
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData()
+  const response = await fetch(
+    'https://jsonplaceholder.typicode.com/todos/1'
+  ).then((res) => {
+    return res.json()
+  })
+
   return {
     props: {
       allPostsData,
+      response,
     },
   }
 }
 
-export default function Home({ allPostsData }) {
+export default function Home({ allPostsData, response }) {
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
+        <h1>{response.title}</h1>
         <p>[Your Self Introduction]</p>
         <p>
           (This is a sample website - you’ll be building a site like this on{' '}
